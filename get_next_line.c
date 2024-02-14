@@ -6,7 +6,7 @@
 /*   By: maverqui <maverqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 20:02:19 by maverqui          #+#    #+#             */
-/*   Updated: 2024/02/12 19:34:53 by maverqui         ###   ########.fr       */
+/*   Updated: 2024/02/14 18:00:40 by maverqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,12 @@ int take_rest(char **stash, int len)
 	rest = (char *)malloc(ft_strlen(*stash) - len + 1);
 	if (!rest)
 		return (0);
-	while ((*stash)[i])
+	while ((*stash)[len + i])
 	{
-		rest[i - len] = (*stash)[i];
+		rest[i] = (*stash)[len + i];
 		i++;
 	}
-	rest[i - len] = '\0';
+	rest[i] = '\0';
 	if (*stash != NULL)
 		free (*stash);
 	*stash = rest;
@@ -93,9 +93,14 @@ char *get_next_line(int fd)
 		return (NULL);
 	if (!read_file(fd, &stash))
 		return (NULL);
-	if (!stash)
-		return (NULL);
 	line = cut_line(&stash);
+	if (!line)
+	{
+		free(stash);
+		free(line);
+		stash = NULL;
+		return (NULL);
+	}
 	return (line);
 }
 int main()
@@ -104,9 +109,10 @@ int main()
 	char *data = NULL;
 	while ((data = get_next_line(fd)))
 	{
-		printf("%s\n", data);
+		printf("%s", data);
 		free(data);
 	}
+	free(data);
 	close(fd);
 	return (0);
 }

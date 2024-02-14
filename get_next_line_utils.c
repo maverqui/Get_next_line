@@ -6,7 +6,7 @@
 /*   By: maverqui <maverqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 12:31:26 by maverqui          #+#    #+#             */
-/*   Updated: 2024/02/12 18:03:40 by maverqui         ###   ########.fr       */
+/*   Updated: 2024/02/14 17:48:15 by maverqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ char	*ft_strjoin(char *s1, char *s2)
 		j++;
 	}
 	full[i + j] = '\0';
+	free(s1);
 	return (full);
 }
 
